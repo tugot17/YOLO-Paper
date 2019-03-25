@@ -58,7 +58,7 @@ Object Detection with YOLO Algorithm}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{abstract}
 
-This document is summary of my presentation about Object Detection with the YOLO Algorithm delivered on 25 February 2019 at the Seminar: Artificial Intelligence - Autonomous Vehicles WS 18/19 at FU Berlin. The seminar was conducted by Prof. Daniel G{\"o}hring. This document assumes that the reader is familiar with basic Algebra and Deep Learning concepts.
+This document is summary of my presentation about Object Detection with the YOLO Algorithm delivered on 25 February 2019 at the Seminar: Artificial Intelligence - Autonomous Vehicles WS 18/19 at FU Berlin. The seminar was conducted by Prof. Daniel G{\"o}hring. This document assumes that the reader is familiar with basic Linear Algebra and Deep Learning concepts.
 
 \end{abstract}
 
@@ -345,7 +345,7 @@ Interesting "trick" is we can implement FC layer by using convolution filters. A
 
 \section{OBJECT LOCALIZATION}
 
-Object Localization is a simplified version of object detection problem, where image contains only one big object of some class. The goal of NN is to predict if image contains any object and if so, to predict central point coordinates, width and high. Very similar concept will be used further in this paper to describe how YOLO Algorithm works. For the purposes of this paper to avoid problems with size of an image, let's assume that the top left corner will be described as point $(0,0)$ and bottom right corner  will be described as point $(1,1)$ (Example outputs at Fig. 16)
+Object Localization is a simplified version of the object detection problem, where image contains only one big object of some class. The goal of NN is to predict if an image contains any object and if so, to predict central point coordinates, width and high. Very similar concept will be used further in this paper to describe how YOLO Algorithm works. For the purposes of this paper to avoid problems with size of an image, let's assume that the top left corner will be described as point $(0,0)$ and the bottom right corner  will be described as point $(1,1)$ (Example outputs at Fig. 16)
 
 \begin{figure}[!ht]
 	\centering
@@ -375,13 +375,13 @@ Loss function could be designed like that:
 Where $y_1 = p_o, \: y_2 = b_x, \: y_3=b_y$ etc.
 
 \section{SLIDING WINDOW}
-If image contains more then one object we can no longer use Object Localization, so we need to find another way to detect objects. One of popular approaches is sliding window algorithm. It is very simple but provide good enough results. 
+If an image contains more then one object we can no longer use Object Localization, so we need to find another way to detect objects. One of popular approaches is the Sliding Window Algorithm. It is very simple but provide good enough results. 
 
 \subsection{How algorithm works}
-Sliding window algorithm, as the name suggests is mainly about sliding a window. We take same part of an image, feed forward it through Neural Network (or any other classifier) and we have prediction if this part of an image contains object. 
+In the Sliding Window Algorithm we take part of an image (called window), feed forward it through Neural Network (or any other classifier) and we end with prediction if this part of an image contains an object. We repeat these steps for each part of the picture (that's why we call it sliding a window) and as a result we have predictions for all fields in the image.  
 
 \subsection{Why it is not perfect}
-Sliding window approach is relatively simple but unfortunately it has a few disadvantages, such as:
+The sliding window approach is relatively simple but unfortunately it has a few disadvantages, such as:
 
 \begin{itemize}
 
@@ -398,10 +398,10 @@ So how we can make it in a smarter way?
 
 
 \section{CONVOLUTIONAL IMPLEMENTATION OF SLIDING WINDOW}
-We can perform sliding window much faster and more efficient using its Convolution implementation. The idea of Convolutional implementation of sliding window was first introduced in Feb. 2014 by Sermanet\footnote{New York University sermanet@cs.nyu.edu},  Eigen\footnote{New York University deigen@cs.nyu.edu}, Zhang\footnote{New York University xiang@cs.nyu.edu}, Mathieu\footnote{New York University mathieu@cs.nyu.edu}, Fergus\footnote{New York University fergus@cs.nyu.edu}, LeCun\footnote{New York University yann@cs.nyu.edu}  in "OverFeat: Integrated Recognition, Localization and Detection using Convolutional Networks" paper. One year later it was used in the original YOLO paper. 
+We can perform the Sliding Window Algotithm much faster and more efficient using its Convolution implementation. The idea of Convolutional Implementation of Sliding Window was first introduced in Feb. 2014 by Sermanet\footnote{New York University sermanet@cs.nyu.edu},  Eigen\footnote{New York University deigen@cs.nyu.edu}, Zhang\footnote{New York University xiang@cs.nyu.edu}, Mathieu\footnote{New York University mathieu@cs.nyu.edu}, Fergus\footnote{New York University fergus@cs.nyu.edu}, LeCun\footnote{New York University yann@cs.nyu.edu}  in "OverFeat: Integrated Recognition, Localization and Detection using Convolutional Networks" paper. One year later it was used in the original YOLO paper. 
 
 \subsection{How it works}
-Using convolutions we can share a lots of computations. We apply convolution operation to an original image, and we "accumulate" knowledge about individual regions in cells of next layer. Then we apply next convolution we "accumulate accumulated" knowledge and so on and so forth. We end up having information about regions in a single cell of the last output. More on that in the original paper. (See Fig. 17) 
+Using convolutions we can share a lots of computations. We apply convolution operation to the original image, and we "accumulate" knowledge about individual regions in cells of next layer. Then we apply next convolution we "accumulate accumulated" knowledge and so on and so forth. We end up having information about regions in a single cell of the last output. More on that in the original paper. (See Fig. 17) 
 
 \begin{figure}[!ht]
 	\centering
@@ -410,7 +410,7 @@ Using convolutions we can share a lots of computations. We apply convolution ope
 \end{figure}
 
 \section{YOU ONLY LOOK ONCE}
-Finally we've reached YOLO - You Only Look Once. YOLO combines the ideas from convolution implementation of sliding window and object localization.
+Finally we've reached YOLO - You Only Look Once. YOLO combines ideas from Convolution Implementation of Sliding Window and Object Localization.
 \begin{figure}[!ht]
 	\centering
     \includegraphics[width=0.5\textwidth]{Pictures/YOLO_architecture.png}
@@ -418,7 +418,7 @@ Finally we've reached YOLO - You Only Look Once. YOLO combines the ideas from co
 \end{figure}
 
 \subsection{How it works}
-In YOLO we apply convolution implementation of sliding window to the input image, we end up with image divided into some kind of grid cell. Each cell combines information about itself and surrounding cells. Each cell represents vector similar to the one that we know from object localization. It contains probability that cell contains central point of some object, the coordinates of that central point (to avoid problems with size we assume that top left corner of a each grid cell has coordinates $(0,0)$ and bottom right corner has coordinates $(1,1)$), object width and high (it might me be grater then one, because cell has knowledge also about cells surrounding it) and probabilities of classes(In Fig. 19 example output for a single cell). 
+In the YOLO Algorithm we apply the Convolution Implementation of Sliding Window to the input image, we end up with image divided into some kind of a grid cell. Each cell combines information about itself and surrounding cells. Each cell represents vector similar to the one that we know from Object Localization. It contains probability that cell contains central point of some object, the coordinates of that central point (to avoid problems with size we assume that the top left corner of a each grid cell has coordinates $(0,0)$ and  the bottom right corner has coordinates $(1,1)$), object width and high (it might me be grater then one, because cell has knowledge also about cells surrounding it) and probabilities of classes(In Fig. 19 example output for a single cell). 
 
 E.g. In the original YOLO architecture last output is $7 \times 7 \times 30$ (See Fig. 18) it means that we have 49 grid cells and each cell is vector of 30 elements which describe that grid cell. 
 
@@ -428,7 +428,7 @@ E.g. In the original YOLO architecture last output is $7 \times 7 \times 30$ (Se
 	\caption{Example cell output for $ (3\times 3) \times 8$ output layer}
 \end{figure}
 
-After propagating our image through CNN we have prediction for every cell. To get a final predictions we need to perform 2 steps (See result of these 2 steps in Fig. 20)
+After propagating our image through a CNN we have a prediction for every cell. To get a final predictions we need to perform 2 steps (See result of these 2 steps in Fig. 20)
 
 \begin{itemize}
 
@@ -449,7 +449,7 @@ When we have 2 predictions that intersect, we need to decide, should both predic
 
 $IoU$ - Intersection over Union. As the name suggests is a fraction $\frac{Intersection \: surface \: area}{Union \: surface \: area}$
 
-In Non-max suppression we compere surface of intersection with surface of union and when $IoU$ is bigger then some threshold value (e.g. 0.6, but it depends on implementation) we take only the detection with bigger $p_o$ - probability that this cell contains central point of an object. In case $IoU$ is smaller then some threshold value we keep both predictions. We perform Non-max suppression for all intersecting predictions. (Example result of algorithm in Fig. 21) 
+In Non-max suppression we compere surface of an intersection with a surface of union and when $IoU$ is bigger then some threshold value (e.g. 0.6, but it depends on implementation) we take only the detection with bigger $p_o$ - probability that this cell contains central point of an object. In case $IoU$ is smaller then some threshold value we keep both predictions. We perform Non-max suppression for all intersecting predictions. (Example result of algorithm in Fig. 21) 
 
 \begin{figure}[!ht]
 	\centering
@@ -459,7 +459,7 @@ In Non-max suppression we compere surface of intersection with surface of union 
 
 
 \subsection{Anchor box}
-The idea of anchor box was introduced in YOLO9000 paper. Concept is relatively simple. What happen when two objects of different shapes or different sizes has central point in the same cell? In that case in the original YOLO paper only one object could be detected. In improved version of algorithm the last layer of CNN (the one that divide image into grid cells) is "deeper", it contains multiple predictions not only one. 
+The idea of anchor box was introduced in YOLO9000 paper. Concept is relatively simple. What happen when two objects of different shapes or different sizes has central point in the same cell? In that case in the original YOLO paper only one object could be detected. In the improved version of an algorithm the last layer of CNN (the one that divide image into grid cells) is "deeper", it contains multiple predictions not only one. 
 
 The size of each grid cell will be (number of anchor boxes) $\times$ (size of original prediction). Thanks to that it is possible to detect multiple object in one grid cells.
 
