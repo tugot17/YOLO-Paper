@@ -5,8 +5,8 @@ This document is summary of my presentation about Object Detection with the YOLO
 <img src="Pictures/racoon detection.gif" alt="drawing" width="500px"/>
 
 ## Paper
-Paper can be found in [@Object_Detection_with_YOLO.pdf](https://github.com/tugot17/YOLO_paper/blob/master/Object_Detection_with_YOLO.pdf) file
+Paper can be found in [Object_Detection_with_YOLO.pdf](https://github.com/tugot17/YOLO_paper/blob/master/Object_Detection_with_YOLO.pdf) file
 
 ## Template
-Used tamplate can be found in [@root.tex](https://github.com/tugot17/YOLO_paper/blob/master/root.tex)  file
+Used tamplate can be found in [root.tex](https://github.com/tugot17/YOLO_paper/blob/master/root.tex)  file
 
