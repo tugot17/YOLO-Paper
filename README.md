@@ -10,3 +10,11 @@ Paper can be found in [Object_Detection_with_YOLO.pdf](https://github.com/tugot1
 ## Template
 Used tamplate can be found in [root.tex](https://github.com/tugot17/YOLO_paper/blob/master/root.tex)  file
 
+## Authors
+
+* [tugot17](https://github.com/tugot17)
+
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
